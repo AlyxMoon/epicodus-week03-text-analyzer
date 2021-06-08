@@ -16,3 +16,22 @@ function wordCounter(text) {
   });
   return wordCount;
 }
+
+function numberOfOccurrencesInText(word, text) {
+  word = word.toLowerCase()
+  text = text.toLowerCase()
+
+  const wordArray = text.split(' ')
+  let wordCount = 0
+
+  wordArray.forEach(function (element) {
+    if (
+      word.length >= 1 &&
+      element.includes(word)
+    ) {
+      wordCount++
+    }
+  })
+
+  return wordCount
+}
