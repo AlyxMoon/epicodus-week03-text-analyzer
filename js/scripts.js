@@ -5,13 +5,63 @@ $(document).ready(function(){
     event.preventDefault();
     const passage = $("#text-passage").val();
     const word = $("#word").val();
+
     const wordCount = wordCounter(passage);
     const occurrencesOfWord = numberOfOccurrencesInText(word, passage);
+
     $("#total-count").html(wordCount);
     $("#selected-count").html(occurrencesOfWord);
+    $('#bolded-passage').html(boldPassage(word, passage))
+
+    $('#top-three-words').html(getTopThreeWords(passage))
+    $('#no-offensive').html(getSentenceWithoutBadWords(passage))
+    $('#bolded-text').html(getSentenceWithBoldedText(passage))
   });
 });
+
 // Business Logic
+function getTopThreeWords (text) {
+  const textSplitByWord = text.split(' ').sort()
+
+  const arrayOfWords = []
+  const arrayOfCounts = []
+  let prev
+
+  for (let i = 0; i < textSplitByWord.length; i++) {
+    if (textSplitByWord[i] !== prev) {
+      arrayOfWords.push(textSplitByWord[i]);
+      arrayOfCounts.push(1);
+    } else {
+      arrayOfCounts[arrayOfCounts.length - 1]++;
+    }
+    prev = textSplitByWord[i];
+  }
+
+  const combinedArray = []
+
+  arrayOfWords.forEach(function (item, index) {
+    const combined = [arrayOfWords[index], arrayOfCounts[index]]
+    combinedArray.push(combined)
+  })
+
+  combinedArray.sort(function (a, b) {
+    return b[1] - a[1]
+  })
+
+  return [
+    combinedArray[0][0],
+    combinedArray[1][0],
+    combinedArray[2][0],
+  ].join(' ')
+}
+
+function getSentenceWithoutBadWords (text) {
+  return ''
+}
+
+function getSentenceWithBoldedText (text) {
+  return ''
+}
 
 function wordCounter(text) {
   let wordCount = 0;
@@ -31,6 +81,10 @@ function wordCounter(text) {
 }
 
 function numberOfOccurrencesInText(word, text) {
+  if (noInputtedWord(word, text)) {
+    return 0
+  }
+
   word = word.toLowerCase()
   text = text.toLowerCase()
 
@@ -38,10 +92,7 @@ function numberOfOccurrencesInText(word, text) {
   let wordCount = 0
 
   wordArray.forEach(function (element) {
-    if (
-      word.length >= 1 &&
-      element.includes(word)
-    ) {
+    if (element.includes(word)) {
       wordCount++
     }
   })
@@ -50,12 +101,18 @@ function numberOfOccurrencesInText(word, text) {
 }
 
 function boldPassage (word, text) {
+  if (noInputtedWord(word, text)) {
+    return 0
+  }
+
   let htmlString = '<p>'
   let textArray = text.split(' ')
 
   textArray.forEach(function (element, index) {
-    if (word === element) {
-      htmlString = htmlString.concat('<b>' + element + '</b>')
+    if (element.includes(word)) {
+      // step one, get variable that equals the matching part
+      // step two, put that variable in the bold text
+      htmlString = htmlString.concat('<b>' + word + '</b>')
     } else {
       htmlString = htmlString.concat(element)
     }
@@ -66,4 +123,12 @@ function boldPassage (word, text) {
   })
 
   return htmlString + '</p>'
+}
+
+// utilities
+function noInputtedWord (word, text) {
+  return (
+    text.trim().length === 0 ||
+    word.trim().length === 0
+  )
 }
