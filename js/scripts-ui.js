@@ -9,7 +9,9 @@ $(document).ready(function(){
     $('#output-count-selected').html(getCountSpecificWord(passage, matchText))
     $('#output-bolded-words').html(getTextWithWordBolded(passage, matchText))
 
-    $('#output-top-three').html(getTopThreeWords(passage))
+    getTopThreeWordsDisplayed(passage)
+
+    // $('#output-top-three').html(getTopThreeWords(passage))
     $('#output-no-offensive').html(getSentenceWithoutBadWords(passage))
     $('#output-bolded-matches').html(getSentenceWithBoldedText(passage, matchText))
   })
