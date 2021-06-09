@@ -114,8 +114,14 @@ function getSentenceWithoutBadWords (passage) {
     .join(' ')
 }
 
-function getSentenceWithBoldedText (passage) {
-  return ''
+function getSentenceWithBoldedText (passage, matchText) {
+  const regexMatcher = new RegExp(matchText, 'gi')
+
+  return `
+   <p>
+    ${passage.replace(regexMatcher, `<b>${matchText}</b>`)}
+   </p>
+  `
 }
 
 function getCountTotalWords(passage) {
