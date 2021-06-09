@@ -125,63 +125,46 @@ function getSentenceWithBoldedText (passage, matchText) {
 }
 
 function getCountTotalWords(passage) {
-  let wordCount = 0
+  const parsedText = passage
+    .replace(/[^a-zA-Z ]/g, '')
+    .replace(/ +/g, ' ')
+    .trim()
 
-  const wordArray = ((passage.toString()).split(' '))
+  if (!parsedText.length) return 0
 
-  wordArray.forEach(function(word) {
-    if (
-      word.length >= 1 &&
-      isNaN(parseInt(word))
-    ) {
-      wordCount++
-    }
-    
-  })
-  return wordCount
+  return parsedText.split(' ').length
 }
 
 function getCountSpecificWord(passage, word) {
-  if (noInputtedWord(word, passage)) {
-    return 0
-  }
+  const parsedText = passage
+    .replace(/[^a-zA-Z ]/g, '')
+    .replace(/ +/g, ' ')
+    .trim()
 
-  word = word.toLowerCase()
-  passage = passage.toLowerCase()
+  if (!parsedText.length) return 0
 
-  const wordArray = passage.split(' ')
-  let wordCount = 0
-
-  wordArray.forEach(function (element) {
-    if (element.includes(word)) {
-      wordCount++
-    }
-  })
-
-  return wordCount
+  return parsedText
+    .split(' ')
+    .filter(function (item) {
+      return item === word
+    })
+    .length
 }
 
 function getTextWithWordBolded (passage, word) {
-  if (noInputtedWord(word, passage)) {
-    return 0
-  }
+  const parsedText = passage
+    .replace(/[^a-zA-Z ]/g, '')
+    .replace(/ +/g, ' ')
+    .trim()
 
-  let htmlString = '<p>'
-  let passageArray = passage.split(' ')
+  if (!parsedText.length) return 0
 
-  passageArray.forEach(function (element, index) {
-    if (element === word) {
-      // step one, get variable that equals the matching part
-      // step two, put that variable in the bold passage
-      htmlString = htmlString.concat('<b>' + element + '</b>')
-    } else {
-      htmlString = htmlString.concat(element)
-    }
-
-    if (index !== passageArray.length - 1) {
-      htmlString = htmlString.concat(' ')
-    }
-  })
-
-  return htmlString + '</p>'
+  return '<p>' + parsedText
+    .split(' ')
+    .map(function (item) {
+      return item === word
+        ? `<b>${item}</b>`
+        : item
+    })
+    .join(' ') + '</p>'
 }
