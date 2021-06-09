@@ -98,7 +98,20 @@ function getTopThreeWordsDisplayed (passage) {
 }
 
 function getSentenceWithoutBadWords (passage) {
-  return ''
+  const badWords = [
+    'zoinks',
+    'muppeteer',
+    'biffaroni',
+    'loopdaloop',
+  ]
+
+  return passage
+    .trim()
+    .split(' ')
+    .filter(function (word) {
+      return !badWords.includes(word)
+    })
+    .join(' ')
 }
 
 function getSentenceWithBoldedText (passage) {
