@@ -5,16 +5,13 @@ $(document).ready(function(){
     const passage = $('#input-passage').val()
     const matchText = $('#input-word').val()
 
-    const wordCount = wordCounter(passage)
-    const occurrencesOfWord = numberOfOccurrencesInText(matchText, passage)
-
-    $('#output-count-total').html(wordCount)
-    $('#output-count-selected').html(occurrencesOfWord)
-    $('#output-bolded-words').html(boldPassage(word, passage))
+    $('#output-count-total').html(getCountTotalWords(passage, matchText))
+    $('#output-count-selected').html(getCountSpecificWord(passage, matchText))
+    $('#output-bolded-words').html(getTextWithWordBolded(passage, matchText))
 
     $('#output-top-three').html(getTopThreeWords(passage))
     $('#output-no-offensive').html(getSentenceWithoutBadWords(passage))
-    $('#output-bolded-matches').html(getSentenceWithBoldedText(passage))
+    $('#output-bolded-matches').html(getSentenceWithBoldedText(passage, matchText))
   })
 })
 

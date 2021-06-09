@@ -1,18 +1,18 @@
-function getTopThreeWords (text) {
-  const textSplitByWord = text.split(' ').sort()
+function getTopThreeWords (passage) {
+  const passageSplitByWord = passage.split(' ').sort()
 
   const arrayOfWords = []
   const arrayOfCounts = []
   let prev
 
-  for (let i = 0; i < textSplitByWord.length; i++) {
-    if (textSplitByWord[i] !== prev) {
-      arrayOfWords.push(textSplitByWord[i])
+  for (let i = 0; i < passageSplitByWord.length; i++) {
+    if (passageSplitByWord[i] !== prev) {
+      arrayOfWords.push(passageSplitByWord[i])
       arrayOfCounts.push(1)
     } else {
       arrayOfCounts[arrayOfCounts.length - 1]++
     }
-    prev = textSplitByWord[i]
+    prev = passageSplitByWord[i]
   }
 
   const combinedArray = []
@@ -33,18 +33,18 @@ function getTopThreeWords (text) {
   ].join(' ')
 }
 
-function getSentenceWithoutBadWords (text) {
+function getSentenceWithoutBadWords (passage) {
   return ''
 }
 
-function getSentenceWithBoldedText (text) {
+function getSentenceWithBoldedText (passage) {
   return ''
 }
 
-function wordCounter(text) {
+function getCountTotalWords(passage) {
   let wordCount = 0
 
-  const wordArray = ((text.toString()).split(' '))
+  const wordArray = ((passage.toString()).split(' '))
 
   wordArray.forEach(function(word) {
     if (
@@ -58,15 +58,15 @@ function wordCounter(text) {
   return wordCount
 }
 
-function numberOfOccurrencesInText(word, text) {
-  if (noInputtedWord(word, text)) {
+function getCountSpecificWord(passage, word) {
+  if (noInputtedWord(word, passage)) {
     return 0
   }
 
   word = word.toLowerCase()
-  text = text.toLowerCase()
+  passage = passage.toLowerCase()
 
-  const wordArray = text.split(' ')
+  const wordArray = passage.split(' ')
   let wordCount = 0
 
   wordArray.forEach(function (element) {
@@ -78,24 +78,24 @@ function numberOfOccurrencesInText(word, text) {
   return wordCount
 }
 
-function boldPassage (word, text) {
-  if (noInputtedWord(word, text)) {
+function getTextWithWordBolded (passage, word) {
+  if (noInputtedWord(word, passage)) {
     return 0
   }
 
   let htmlString = '<p>'
-  let textArray = text.split(' ')
+  let passageArray = passage.split(' ')
 
-  textArray.forEach(function (element, index) {
-    if (element.includes(word)) {
+  passageArray.forEach(function (element, index) {
+    if (element === word) {
       // step one, get variable that equals the matching part
-      // step two, put that variable in the bold text
-      htmlString = htmlString.concat('<b>' + word + '</b>')
+      // step two, put that variable in the bold passage
+      htmlString = htmlString.concat('<b>' + element + '</b>')
     } else {
       htmlString = htmlString.concat(element)
     }
 
-    if (index !== textArray.length - 1) {
+    if (index !== passageArray.length - 1) {
       htmlString = htmlString.concat(' ')
     }
   })
