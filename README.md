@@ -1,5 +1,31 @@
+# Epicodus | Week 03 | Text Analyzer
+
+This site will present a form to the user, asking them for a sentence and a word. There are series of functions that act on the sentence, and some on the word. These functions do things such as: count the total words, find the count of a single word, and so on. 
+
+## Live Site
+[https://alyxmoon.github.io/epicodus-week03-text-analyzer/](https://alyxmoon.github.io/epicodus-week03-text-analyzer/)
+
+## Requirements / Steps
+Prior to the official practice page, here are the steps that were performed:
+1. Create a series of tests for `wordCounter()` and write the function to meet them
+2. Create a series of tests for `numberOfOccurencesInText()` and meet them
+3. Create a series of tests for `boldPassage()` and meet them.
+4. Fill out frontend code to handle user input/output
+
+After that, here are the goals to achieve:
+1. Write a function that returns the three most used words in a passage of text.
+2. Write a function that omits offensive words. For the purpose of this application, there are only four offensive words to worry about: _zoinks_, _muppeteer_, _biffaroni_, and _loopdaloop_.
+3. Write a UI function that only bolds the part of the word that matches.
+
+## Contributors
+
+- [Allister Kays](https://github.com/AlyxMoon)
+- [Araceli Valdovinos](https://github.com/aracelivaldovinos)
+
+
 #### Tests
 ##### Describe: wordCounter()
+
 
 ```
 Test: "It should return 1 if a passage has just one word."

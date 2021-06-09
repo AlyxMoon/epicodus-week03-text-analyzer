@@ -1,23 +1,24 @@
 // UI Logic
 
 $(document).ready(function(){
-  $("form#word-counter").submit(function(event){
-    event.preventDefault();
-    const passage = $("#text-passage").val();
-    const word = $("#word").val();
+  $('form').submit(function(event){
+    event.preventDefault()
 
-    const wordCount = wordCounter(passage);
-    const occurrencesOfWord = numberOfOccurrencesInText(word, passage);
+    const passage = $('#input-passage').val()
+    const matchText = $('#input-word').val()
 
-    $("#total-count").html(wordCount);
-    $("#selected-count").html(occurrencesOfWord);
-    $('#bolded-passage').html(boldPassage(word, passage))
+    const wordCount = wordCounter(passage)
+    const occurrencesOfWord = numberOfOccurrencesInText(matchText, passage)
 
-    $('#top-three-words').html(getTopThreeWords(passage))
-    $('#no-offensive').html(getSentenceWithoutBadWords(passage))
-    $('#bolded-text').html(getSentenceWithBoldedText(passage))
-  });
-});
+    $('#output-count-total').html(wordCount)
+    $('#output-count-selected').html(occurrencesOfWord)
+    $('#output-bolded-words').html(boldPassage(word, passage))
+
+    $('#output-top-three').html(getTopThreeWords(passage))
+    $('#output-no-offensive').html(getSentenceWithoutBadWords(passage))
+    $('#output-bolded-matches').html(getSentenceWithBoldedText(passage))
+  })
+})
 
 // Business Logic
 function getTopThreeWords (text) {
@@ -29,12 +30,12 @@ function getTopThreeWords (text) {
 
   for (let i = 0; i < textSplitByWord.length; i++) {
     if (textSplitByWord[i] !== prev) {
-      arrayOfWords.push(textSplitByWord[i]);
-      arrayOfCounts.push(1);
+      arrayOfWords.push(textSplitByWord[i])
+      arrayOfCounts.push(1)
     } else {
-      arrayOfCounts[arrayOfCounts.length - 1]++;
+      arrayOfCounts[arrayOfCounts.length - 1]++
     }
-    prev = textSplitByWord[i];
+    prev = textSplitByWord[i]
   }
 
   const combinedArray = []
@@ -64,20 +65,20 @@ function getSentenceWithBoldedText (text) {
 }
 
 function wordCounter(text) {
-  let wordCount = 0;
+  let wordCount = 0
 
-  const wordArray = ((text.toString()).split(" "));
+  const wordArray = ((text.toString()).split(' '))
 
   wordArray.forEach(function(word) {
     if (
       word.length >= 1 &&
       isNaN(parseInt(word))
     ) {
-      wordCount++;
+      wordCount++
     }
     
-  });
-  return wordCount;
+  })
+  return wordCount
 }
 
 function numberOfOccurrencesInText(word, text) {
@@ -97,7 +98,7 @@ function numberOfOccurrencesInText(word, text) {
     }
   })
 
-  return wordCount;
+  return wordCount
 }
 
 function boldPassage (word, text) {
